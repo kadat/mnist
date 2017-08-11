@@ -1,0 +1,752 @@
+pnorm(1.8, 0, 1) - pnorm(1.2, 0, 1)
+pnorm(1.5, 0, 1) * 0.6
+dnorm(1.5, 0, 1) * 0.6
+load("/Users/kada/Downloads/d.RData")
+glm(y~log(x), family=Gamma(link="log", data=d))
+glm(y~log(x), family=Gamma(link="log"), data=d)
+d <- read.csv("http://hosho.ees.hokudai.ac.jp/~kubo/stat/iwanamibook/fig/glmm/data.csv")
+d4 <- d[d$x == 4,]
+table(d4$y)
+c(mean(d4$y), var(d4$y))
+y
+~/Downloads/glmmML
+update.packages()
+install.packages("glmmML")
+glmmML(cbind(y,N-y)~x, data=d, family=binomial, cluster=id)
+data <- c(4,3,4,5,5,2,3,1,4,0,1,5,5,6,5,4,4,5,3,4)
+library(glmmML)
+glmmML(cbind(y,N-y)~x, data=d, family=binomial, cluster=id)
+library(mlbench)
+install.packages("mlbench")
+library(mlbench)
+data(BreastCancer)
+BC.train <- BreastCancer[even.n, -1]
+even.n <- 2*(1:349)
+BC.train <- BreastCancer[even.n, -1]
+BreastCancer
+install.packages("randomForest")
+library(randomForest)
+set.seed(20)
+BC.rf <- randomForest(Class~., data=BC.train, na.action="na.omit")
+print(BC.rf)
+plot(BC.rf)
+BC.rf$importance
+x <- c(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0)
+y <- c(0.355578, 0.297466, 0.243227, 0.183471, 0.151322, 0.144594, 0.180806, 0.142025, 0.099388, 0.052293, 0)
+z <- c(0.355578, 0.355578, 0.355578, 0.355578, 0.355578, 0.355578, 0.355578, 0.355578, 0.355578, 0.355578, 0.355578)
+png("plot1.png", width = 100, height = 100)
+plot(x, y)
+png("plot1.png", width = 50, height = 50)
+plot(x, y)
+setEPS()
+postscript("filename.eps")
+plot(c(1,2,3), c(3,4,5), type = "l")
+c <- (10,16,16,18,16,15,14,14,13,12,20,18,19,17,18)
+生育 <- c(10,16,16,18,16,15,14,14,13,12,20,18,19,17,18)
+薬品 <- factor(c(rep("A1",5),rep("A2",5),rep("A3",5)))
+植物 <- factor(rep(c(rep("B1",1),rep("B2",1),rep("B3",1),rep("B4",1),rep("B5",1)),3))
+summary(aov(生育~薬品*植物))
+summary(anova(生育~薬品*植物))
+aov(生育~薬品*植物)
+anova(aov(生育 ~ 薬品*植物))
+anova(aov(生育 ~ 薬品+植物))
+x <- array(1:8, dim=c(1, 4, 2))
+length(x)
+x[1][2][2]
+x[0][2][2]
+x[1,2,2]
+length(x[1,2,])
+length(x[1,,1])
+mode2_product <- function(x, y) {#
+  left_dim <- length(x[,1,1]) # xのモード1の次元数#
+  right_dim <- length(x[1,1,]) # xのモード2の次元数#
+  a <- array(seq(0, 0, length = left_dim * right_dim), dim=c(left_dim, right_dim))#
+  for (i in 1 : left_dim) {#
+    for (j in 1 : right_dim) {#
+      for (k in 1 : d) {#
+        a[i, j] <- a[i, j] + x[i, k, j] * y[k]#
+      }#
+    }#
+  }#
+  return(a)#
+}
+x <- array(1:8, dim=c(1, 4, 2))
+y <- c(1,2,3,4)
+mode2_product(x,y)
+d <- 2
+mode2_product(x,y)
+x
+HOSVD=function(T){dimvec=dim(T)N=length(dimvec)Ulist=as.list(NA)transUlist=as.list(NA)dlist=as.list(NA)for (n in 1:N){A=nflat(T,n)U=svd(A)$uUlist[[n]]=UtransUlist[[n]]=t(U)dlist[[n]]=svd(A)$d}S=multimodewithmat(T,transUlist,c(1:N))result=as.list(NA)result[[1]]=Ulistresult[[2]]=Bresult[[3]]=dlistreturn(result)}
+A <- array(1,2,3,4,5,6,7,8, dim=c(1, 4, 2))
+A <- array(c(1,2,3,4,5,6,7,8), dim=c(1, 4, 2))
+A <- array(c(0.9073, 0.8924, 2.1488, 1.7842, 1.7753, 4.2495, 2.1236, -0.6631, 1.8260, 0.7158, -0.4898, 0.3054, 1.6970, -1.5077, 0.3207, -0.0740, 1.9103, 2.1335, -0.3698, 2.4288, 2.3753, 0.0151, 4.0337, 4.7146, 1.4429, -1.7495, -0.2716), dim=c(3, 3, 3))
+HOSVD(A)
+nflat=function(T,n){dimvec=dim(T)N=length(dimvec)if (n>1 & n<N) {dimvec1=c(dimvec[(n+1):N],dimvec[1:(n-1)])}if (n==1) {dimvec1=dimvec[2:N] }if (n==N) {dimvec1=dimvec[1:(N-1)]}M1=formakeall(dimvec1)M2=zahyomakearray(dimvec)In=dimvec[n]L2=dim(M1)[1]####################################################################################################### M1 とM2 の対応を考えるMn=matrix(nr=In,nc=L2)zlist=as.list(NA)w=0for (i in 1:In){for (j in 1:L2){w=w+1cat("i=",i,"j=",j,"\n")Jvec1=M1[j,]Jvec1=c(i,Jvec1)Jvec=c(NA)if (n>1 & n<N) {Jvec[1:(n-1)]=Jvec1[(N-n+2):N]Jvec[n:N]=Jvec1[1:(N-n+1)]}if (n==1) {Jvec=Jvec1}if (n==N){Jvec[1:(N-1)]=Jvec1[2:N];Jvec[N]=Jvec1[1]}### Jvec は何番目か?print("********************")cat("Jvec=");print(Jvec)z=Jveczahyo(M2,Jvec)cat("z=",z,"\n")Mn[i,j]=T[[z]]zlist[[w]]=z}}return(Mn)}
+HOSVD(A)
+formakeall=function(dimvec){N=length(dimvec)v1=c(1:dimvec[N-1])v2=c(1:dimvec[N])M=formake2(v1,v2)if (N==2) {return(M)}for (i in (N-2):1){v=c(1:dimvec[i])newM=formakevecmat(v,M)M=newM}return(M)}
+HOSVD(A)
+formake2=function(v1,v2){I1=length(v1)I2=length(v2)L3=I1*I2M=matrix(nr=L3,nc=2)for (i in 1:I1){print("********************")a=(i-1)*I2+1b=i*I2c(a:b)a=(i-1)*I2+1b=i*I2M[a:b,1]=v1[i]M[a:b,2]=v2}return(M)}
+HOSVD(A)
+nflat=function(T,n){#
++ dimvec=dim(T)#
++ N=length(dimvec)#
++ if (n>1 & n<N) {#
++ dimvec1=c(dimvec[(n+1):N],dimvec[1:(n-1)])#
++ }#
++ if (n==1) {dimvec1=dimvec[2:N] }#
++ if (n==N) {dimvec1=dimvec[1:(N-1)]}#
++ M1=formakeall(dimvec1)#
++ M2=formakeall(dimvec)#
++ In=dimvec[n]#
++ L2=dim(M1)[1]#
++ ###################################################
++ ###################################################
++ ### M1 とM2 の対応を考える#
++ Mn=matrix(nr=In,nc=L2)#
++ zlist=as.list(NA)#
++ w=0#
++ for (i in 1:In){#
++ for (j in 1:L2){#
++ w=w+1#
++ cat("i=",i,"j=",j,"\n")#
++ Jvec1=M1[j,]#
++ Jvec1=c(i,Jvec1)#
++ Jvec=c(NA)#
++ if (n>1 & n<N) {#
++ Jvec[1:(n-1)]=Jvec1[(N-n+2):N]#
++ Jvec[n:N]=Jvec1[1:(N-n+1)]#
++ }#
++ if (n==1) {#
++ Jvec=Jvec1#
++ }#
++ if (n==N){#
++ Jvec[1:(N-1)]=Jvec1[2:N];Jvec[N]=Jvec1[1]#
++ }#
++ ### Jvec は何番目か?#
++ print("********************")#
++ cat("Jvec=");print(Jvec)#
++ z=Jveczahyo(M2,Jvec)#
++ cat("z=",z,"\n")#
++ Mn[i,j]=T[[z]]#
++ zlist[[w]]=z#
++ }#
++ }#
++ return(Mn)#
++ }
+nflat=function(T,n){#
++ dimvec=dim(T)#
++ N=length(dimvec)#
++ if (n>1 & n<N) {#
++ dimvec1=c(dimvec[(n+1):N],dimvec[1:(n-1)])#
++ }#
++ if (n==1) {dimvec1=dimvec[2:N] }#
++ if (n==N) {dimvec1=dimvec[1:(N-1)]}#
++ M1=formakeall(dimvec1)#
++ M2=formakeall(dimvec)#
++ In=dimvec[n]#
++ L2=dim(M1)[1]#
++ ###################################################
++ ###################################################
++ ### M1 とM2 の対応を考える#
++ Mn=matrix(nr=In,nc=L2)#
++ zlist=as.list(NA)#
++ w=0#
++ for (i in 1:In){#
++ for (j in 1:L2){#
++ w=w+1#
++ cat("i=",i,"j=",j,"\n")#
++ Jvec1=M1[j,]#
++ Jvec1=c(i,Jvec1)#
++ Jvec=c(NA)#
++ if (n>1 & n<N) {#
++ Jvec[1:(n-1)]=Jvec1[(N-n+2):N]#
++ Jvec[n:N]=Jvec1[1:(N-n+1)]#
++ }#
++ if (n==1) {#
++ Jvec=Jvec1#
++ }#
++ if (n==N){#
++ Jvec[1:(N-1)]=Jvec1[2:N];Jvec[N]=Jvec1[1]#
++ }#
++ ### Jvec は何番目か?#
++ print("********************")#
++ cat("Jvec=");print(Jvec)#
++ z=Jveczahyo(M2,Jvec)#
++ cat("z=",z,"\n")#
++ Mn[i,j]=T[[z]]#
++ zlist[[w]]=z#
++ }#
++ }#
++ return(Mn)#
++ }
+HOSVD(A)
+nflat=function(T,n){#
++ dimvec=dim(T)#
++ N=length(dimvec)#
++ if (n>1 & n<N) {#
++ dimvec1=c(dimvec[(n+1):N],dimvec[1:(n-1)])#
++ }#
++ if (n==1) {dimvec1=dimvec[2:N] }#
++ if (n==N) {dimvec1=dimvec[1:(N-1)]}#
++ M1=formakeall(dimvec1)#
++ M2=zahyomakearray(dimvec)#
++ In=dimvec[n]#
++ L2=dim(M1)[1]#
++ ###################################################
++ ###################################################
++ ### M1 とM2 の対応を考える#
++ Mn=matrix(nr=In,nc=L2)#
++ zlist=as.list(NA)#
++ w=0#
++ for (i in 1:In){#
++ for (j in 1:L2){#
++ w=w+1#
++ cat("i=",i,"j=",j,"\n")#
++ Jvec1=M1[j,]#
++ Jvec1=c(i,Jvec1)#
++ Jvec=c(NA)#
++ if (n>1 & n<N) {#
++ Jvec[1:(n-1)]=Jvec1[(N-n+2):N]#
++ Jvec[n:N]=Jvec1[1:(N-n+1)]#
++ }#
++ if (n==1) {#
++ Jvec=Jvec1#
++ }#
++ if (n==N){#
++ Jvec[1:(N-1)]=Jvec1[2:N];Jvec[N]=Jvec1[1]#
++ }#
++ ### Jvec は何番目か?#
++ print("********************")#
++ cat("Jvec=");print(Jvec)#
++ z=Jveczahyo(M2,Jvec)#
++ cat("z=",z,"\n")#
++ Mn[i,j]=T[[z]]#
++ zlist[[w]]=z#
++ }#
++ }#
++ return(Mn)#
++ }
+nflat=function(T,n){dimvec=dim(T)N=length(dimvec)if (n>1 & n<N) {dimvec1=c(dimvec[(n+1):N],dimvec[1:(n-1)])}if (n==1) {dimvec1=dimvec[2:N] }if (n==N) {dimvec1=dimvec[1:(N-1)]}M1=formakeall(dimvec1)M2=zahyomakearray(dimvec)In=dimvec[n]L2=dim(M1)[1]####################################################################################################### M1 とM2 の対応を考えるMn=matrix(nr=In,nc=L2)zlist=as.list(NA)w=0for (i in 1:In){for (j in 1:L2){w=w+1cat("i=",i,"j=",j,"\n")Jvec1=M1[j,]Jvec1=c(i,Jvec1)Jvec=c(NA)if (n>1 & n<N) {Jvec[1:(n-1)]=Jvec1[(N-n+2):N]Jvec[n:N]=Jvec1[1:(N-n+1)]}if (n==1) {Jvec=Jvec1}if (n==N){Jvec[1:(N-1)]=Jvec1[2:N];Jvec[N]=Jvec1[1]}### Jvec は何番目か?print("********************")cat("Jvec=");print(Jvec)z=Jveczahyo(M2,Jvec)cat("z=",z,"\n")Mn[i,j]=T[[z]]zlist[[w]]=z}}return(Mn)}
+nflat=function(T,n){dimvec=dim(T)N=length(dimvec)if (n>1 & n<N) {dimvec1=c(dimvec[(n+1):N],dimvec[1:(n-1)])}if (n==1) {dimvec1=dimvec[2:N] }if (n==N) {dimvec1=dimvec[1:(N-1)]}M1=formakeall(dimvec1)M2=formakeall(dimvec)In=dimvec[n]L2=dim(M1)[1]####################################################################################################### M1 とM2 の対応を考えるMn=matrix(nr=In,nc=L2)zlist=as.list(NA)w=0for (i in 1:In){for (j in 1:L2){w=w+1cat("i=",i,"j=",j,"\n")Jvec1=M1[j,]Jvec1=c(i,Jvec1)Jvec=c(NA)if (n>1 & n<N) {Jvec[1:(n-1)]=Jvec1[(N-n+2):N]Jvec[n:N]=Jvec1[1:(N-n+1)]}if (n==1) {Jvec=Jvec1}if (n==N){Jvec[1:(N-1)]=Jvec1[2:N];Jvec[N]=Jvec1[1]}### Jvec は何番目か?print("********************")cat("Jvec=");print(Jvec)z=Jveczahyo(M2,Jvec)cat("z=",z,"\n")Mn[i,j]=T[[z]]zlist[[w]]=z}}return(Mn)}
+HOSVD(A)
+formakevecmat=function(v,M){L=length(v)Lr=dim(M)[1]Lc=dim(M)[2]newM=matrix(nr=L*Lr,nc=(Lc+1))for (i in 1:L){print("********************")a=(i-1)*Lr+1b=i*LrnewM[a:b,1]=v[i]newM[a:b,2:(Lc+1)]=M}return(newM)}
+HOSVD(A)
+library(rTensor)#
+library(dplyr)#
+library(data.table)
+tnsr = rand_tensor(c(10,10,10))
+dim(tnsr)
+tnsr <- rand_tensor(c(6,7,8))
+hosvdD <-hosvd(tnsr)
+hosvdD$fnorm_resid
+hosvdD2 <-hosvd(tnsr,ranks=c(3,3,4))
+hosvdD2$fnorm_resid
+hosvdD$U
+hosvdD$est
+hosvdD$Z
+hosvdD2$Z
+hosvdD <-hosvd(A)
+A <- as.tensor(array(c(0.9073, 0.8924, 2.1488, 1.7842, 1.7753, 4.2495, 2.1236, -0.6631, 1.8260, 0.7158, -0.4898, 0.3054, 1.6970, -1.5077, 0.3207, -0.0740, 1.9103, 2.1335, -0.3698, 2.4288, 2.3753, 0.0151, 4.0337, 4.7146, 1.4429, -1.7495, -0.2716), dim=c(3, 3, 3)))
+hosvdD <-hosvd(A)
+A@data
+hosvdD$Z
+hosvdD$U
+hosvdD$est
+hosvdD$fnorm_resid
+k_unfold(A, 1)@data
+k_unfold(A, 2)@data
+k_unfold(A, 3)@data
+A <- as.tensor(array(c(0.9073, 0.8924, 2.1488, 0.7158, -0.4898, 0.3054, -0.3698, 2.4288, 2.3753, 1.7842, 1.7753, 4.2495, 1.6970, -1.5077, 0.3207, 0.0151, 4.0337, 4.7146, 2.1236, -0.6631, 1.8260, -0.0740, 1.9103, 2.1335,   1.4429, -1.7495, -0.2716), dim=c(3, 3, 3)))
+hosvdD <-hosvd(A)
+k_unfold(A, 1)@data
+hosvdD$Z
+hosvdD$U
+hosvdD$est
+hosvdD <-hosvd(A, ranks=c(3,3,3))
+hosvdD$Z
+hosvdD$U
+hosvdD$est
+8.7088 * 0.0489 - 0.0256 * 3.2546
+phi1 <- seq(0, 0, length = 14*14)
+phi1[0]
+phi1[1]
+phi1[196]
+m <- 10 # band dimension#
+l <- 100 # label#
+for (i in 1 : 14*14) {#
+  if (i == 1) {#
+    w_tnsr[i] =  rand_tensor(c(1,2,m)) #
+  } else if (i == l) {#
+    w_tnsr[i] =  rand_tensor(c(m,2,m,10)) # 0~9の10通り#
+  } else {#
+    w_tnsr[i] =  rand_tensor(c(m,2,m))#
+  }#
+}
+N <- 14*14
+m <- 10 # band dimension#
+l <- 100 # label#
+w_tnsr <- 1 : N #
+for (i in 1 : N) {#
+  if (i == 1 || i == N) {#
+    w_tnsr[i] =  rand_tensor(c(1,2,m)) #
+  } else if (i == l) {#
+    w_tnsr[i] =  rand_tensor(c(m,2,m,10)) # 0~9の10通り#
+  } else {#
+    w_tnsr[i] =  rand_tensor(c(m,2,m))#
+  }#
+}
+v <- 1:6
+v[1]
+v[5]
+w_tnsr =  rand_tensor(c(1,2,m))
+temp =  rand_tensor(c(1,2,m)
+append(w_tnsr, temp)
+w_tnsr = append(w_tnsr, temp)
+temp =  rand_tensor(c(1,2,m))
+w_tnsr = append(w_tnsr, temp)
+w_tnsr
+temp =  rand_tensor(c(1,2,3))
+w_tnsr = append(w_tnsr, temp)
+w_tnsr
+w_tnsr[2]
+w_tnsr[3]
+w_tnsr
+w_tnsr <- 0
+w_tnsr
+w_tnsr <- null
+w_tnsr <- nul
+w_tnsr <- empty
+w_tnsr <- NULL
+w_tnsr = append(w_tnsr, 1,2)
+w_tnsr
+m <- 10 # band dimension#
+l <- 100 # label#
+w_tnsr <- NULL#
+for (i in 1 : N) {#
+  if (i == 1 || i == N) {#
+    temp =  rand_tensor(c(1,2,m))#
+  } else if (i == l) {#
+    temp =  rand_tensor(c(m,2,m,10)) # 0~9の10通り#
+  } else {#
+    temp =  rand_tensor(c(m,2,m))#
+  }#
+  w_tnsr <- append(w_tnsr, temp)#
+}
+w_tnsr
+w_tnsr[159][,1,1]
+w_tnsr[159]@data[,1,1]
+w_tnsr[3]
+w_tnsr@data[ , , 1]
+w_tnsr[159][1]
+w_tnsr[159]
+w_tnsr[159][2]
+tnsr <- as.tensor(array(1:12, dim = c(2, 2, 3)))
+mat <- matrix(1:6, 3, 2)
+tnsr_times_mat <- ttm(tnsr = tnsr, mat = mat, m = 1)
+tnsr_times_mat@data[ , , 1]
+temp =  rand_tensor(c(1,2,m))
+temp
+temp[1,1,1]
+temp[1,2,5]
+temp[1,2,]
+temp[1, ,5]
+w_tnsr[159][2,3,4]
+w_tnsr[159]
+w_tnsr[159][5,2,7]
+(w_tnsr[159])[5,2,7]
+temp[1,2,5]
+w_tnsr[159][1,2,5]
+dim(w_tnsr[159])
+dim(temp)
+dim(w_tnsr)
+m <- 10 # band dimension#
+l <- 100 # label#
+w_tnsr <- 0#
+for (i in 1 : N) {#
+  if (i == 1 || i == N) {#
+    temp =  rand_tensor(c(1,2,m))#
+  } else if (i == l) {#
+    temp =  rand_tensor(c(m,2,m,10)) # 0~9の10通り#
+  } else {#
+    temp =  rand_tensor(c(m,2,m))#
+  }#
+  w_tnsr <- append(w_tnsr, temp)#
+}
+w_tnsr
+w_tnsr[159]
+w_tnsr[159][1,2,3]
+dim(w_tnsr)
+w_tnsr[159][1]
+w_tnsr[159][2]
+m <- 10 # band dimension#
+l <- 100 # label#
+w_tnsr <- list()#
+for (i in 1 : N) {#
+  if (i == 1 || i == N) {#
+    temp =  rand_tensor(c(1,2,m))#
+  } else if (i == l) {#
+    temp =  rand_tensor(c(m,2,m,10)) # 0~9の10通り#
+  } else {#
+    temp =  rand_tensor(c(m,2,m))#
+  }#
+  #w_tnsr <- append(w_tnsr, temp)#
+  w_tnsr <- c(w_tnsr, temp)#
+}
+w_tnsr
+w_tnsr[159]
+w_tnsr[159][1,1,1]
+m <- 10 # band dimension#
+l <- 100 # label#
+w_tnsr <- list()#
+for (i in 1 : N) {#
+  if (i == 1 || i == N) {#
+    w_tnsr[i] =  rand_tensor(c(1,2,m))#
+  } else if (i == l) {#
+    w_tnsr[i] =  rand_tensor(c(m,2,m,10)) # 0~9の10通り#
+  } else {#
+    w_tnsr[i] =  rand_tensor(c(m,2,m))#
+  }#
+  #w_tnsr <- append(w_tnsr, temp)#
+  #w_tnsr <- c(w_tnsr, temp)#
+}
+warnings()
+w_tnsr
+w_tnsr[159]
+w_tnsr[159][1,1,1]
+length(w_tnsr[159])
+length(temp)
+temp =  rand_tensor(c(1,2,m))
+temp =  rand_tensor(c(m,2,m))
+length(temp)
+dim(temp)
+m <- 10 # band dimension#
+l <- 100 # label#
+w_tnsr <- list()#
+for (i in 1 : 1) {#
+  if (i == 1 || i == N) {#
+    w_tnsr[i] =  rand_tensor(c(1,2,m))#
+  } else if (i == l) {#
+    w_tnsr[i] =  rand_tensor(c(m,2,m,10)) # 0~9の10通り#
+  } else {#
+    w_tnsr[i] =  rand_tensor(c(m,2,m))#
+  }#
+  #w_tnsr <- append(w_tnsr, temp)#
+  #w_tnsr <- c(w_tnsr, temp)#
+}
+m <- 10 # band dimension#
+l <- 100 # label#
+w_tnsr <- NULL#
+for (i in 1 : 1) {#
+  if (i == 1 || i == N) {#
+    w_tnsr[i] =  rand_tensor(c(1,2,m))#
+  } else if (i == l) {#
+    w_tnsr[i] =  rand_tensor(c(m,2,m,10)) # 0~9の10通り#
+  } else {#
+    w_tnsr[i] =  rand_tensor(c(m,2,m))#
+  }#
+  #w_tnsr <- append(w_tnsr, temp)#
+  #w_tnsr <- c(w_tnsr, temp)#
+}
+m <- 10 # band dimension#
+l <- 100 # label#
+w_tnsr <- list()#
+for (i in 1 : N) {#
+  if (i == 1 || i == N) {#
+    w_tnsr[i] =  rand_tensor(c(1,2,m))#
+  } else if (i == l) {#
+    w_tnsr[i] =  rand_tensor(c(m,2,m,10)) # 0~9の10通り#
+  } else {#
+    w_tnsr[i] =  rand_tensor(c(m,2,m))#
+  }#
+  #w_tnsr <- append(w_tnsr, temp)#
+  #w_tnsr <- c(w_tnsr, temp)#
+}
+m <- 10 # band dimension#
+l <- 100 # label#
+w_tnsr <- list()#
+for (i in 1 : N) {#
+  if (i == 1 || i == N) {#
+    temp =  rand_tensor(c(1,2,m))#
+  } else if (i == l) {#
+    temp =  rand_tensor(c(m,2,m,10)) # 0~9の10通り#
+  } else {#
+    temp =  rand_tensor(c(m,2,m))#
+  }#
+  #w_tnsr <- append(w_tnsr, temp)#
+  w_tnsr <- c(w_tnsr, temp)#
+}
+w_tnsr
+mode(w_tnsr[159])
+mode(w_tnsr[[159]])
+w_tnsr[[159]]
+w_tnsr[[159]][1,1,1]
+w_tnsr[[159]][1,,]
+N_L <- 10
+y_l <- seq(0, 0, length = N_L)#
+  for (i in 0 : 9) {#
+    if (i == 3) {#
+      y_l[i] <- 1#
+    } else {#
+      y_l[i] <- 0#
+    }#
+  }
+y_l
+temp =  rand_tensor(c(5,2,3,2,2))
+temp[1,1,1,1,1]
+length(B[,1,1,1,1])
+length(temp[,1,1,1,1])
+dim(temp[,1,1,1,1])
+z = 1.28
+f = 0.75
+N = 10000
+(f + z^2 / (2*N) + z* sqrt(f/N - f^2/N + z^2/(4*N:N))) / (1+z^2/N)
+(f + z^2 / (2*N) - z* sqrt(f/N - f^2/N + z^2/(4*N:N))) / (1+z^2/N)
+ttm(w_tnsr[[159]], c(2,1), m = 2)
+ttm(w_tnsr[[159]], matrix(1:2, 2, 1), m = 2)
+ttm(w_tnsr[[159]], matrix(1:2, 1, 2), m = 2)
+matvec(w_tnsr[[159]])
+matvec(ttm(w_tnsr[[159]], matrix(1:2, 1, 2), m = 2))
+as.vector(ttm(w_tnsr[[159]], matrix(1:2, 1, 2), m = 2))
+5:2
+a <- c(1,2)
+b <- c(2,3,4)
+c <- c(4,5)
+a %o% b
+a %o% b %o% c
+library(rTensor)#
+#
+# working directoryの設定#
+setwd("/Users/kada/Documents/szk/mnist")#
+#
+N_T <- 42000 # データ数#
+N_L <- 10 # ラベル数(0~9の10通り)#
+#
+N <- 14*14 # 画像のピクセル数#
+phi1 <- seq(0, 0, length = N) # x1の特徴写像#
+phi2 <- seq(0, 0, length = N) # x2の特徴写像#
+#
+#delta <- 0 # コスト関数の微分#
+eta <- 0.05 # 学習率
+# テンソルトレインを定義(初期化)#
+m <- 10 # band dimension#
+l <- 100 # 番号のラベル#
+w_tnsr <- list()#
+for (i in 1 : N) {#
+  if (i == 1 || i == N) {#
+    temp =  rand_tensor(c(1,2,m))#
+  } else if (i == l) {#
+    temp =  rand_tensor(c(m,2,m,N_L))#
+  } else {#
+    temp =  rand_tensor(c(m,2,m))#
+  }#
+  w_tnsr <- c(w_tnsr, temp)#
+}
+# テンソルの結合#
+B <- as.tensor(array(seq(0, 0, length = m*2*2*m*N_L), dim = c(m,2,2,m,N_L)))#
+delta <- B # テンソル微分(初期化)#
+for (i1 in 1 : dim(B[,1,1,1,1])) {#
+  for (i2 in 1 : dim(B[1,,1,1,1])) {#
+    for (i3 in 1 : dim(B[1,1,,1,1])) {#
+      for (i4 in 1 : dim(B[1,1,1,,1])) {#
+        for (i5 in 1 : dim(B[1,1,1,1,])) {#
+          for (j in 1 : m) {#
+            B[i1,i2,i3,i4,i5] <- B[i1,i2,i3,i4,i5] + w_tnsr[[l]][i1,i2,j,i3] * w_tnsr[[l+1]][j,i4,i5]#
+          }#
+        }#
+      }#
+    }#
+  }#
+}
+w_tnsr[[l]][1,1,1,1]
+# テンソルの結合#
+B <- as.tensor(array(seq(0, 0, length = m*2*2*m*N_L), dim = c(m,2,2,m,N_L)))#
+delta <- B # テンソル微分(初期化)#
+for (i1 in 1 : dim(B[,1,1,1,1])) {#
+  for (i2 in 1 : dim(B[1,,1,1,1])) {#
+    for (i3 in 1 : dim(B[1,1,,1,1])) {#
+      for (i4 in 1 : dim(B[1,1,1,,1])) {#
+        for (i5 in 1 : dim(B[1,1,1,1,])) {#
+          for (j in 1 : m) {#
+            B[i1,i2,i3,i4,i5] <- w_tnsr[[l]][i1,i2,j,i5] * w_tnsr[[l+1]][j,i3,i4]#
+          }#
+        }#
+      }#
+    }#
+  }#
+}
+# データの訓練#
+for (a in 1 : N_T) {#
+  # #
+  x <- data.matrix(train[a,-1])#
+  for (i in 1 : N) {#
+    phi1[i] <- cos(pi * x / (2 * 1020)) # ここで割る mean(...)/255#
+    phi2[i] <- sin(pi * x / (2 * 1020))#
+  }#
+  # ラベルy_lの計算#
+  y_l <- seq(0, 0, length = N_L)#
+  for (i in 0 : 9) {#
+    if (i == train[a,-2][1]) {#
+      y_l[i] <- 1#
+    } else {#
+      y_l[i] <- 0#
+    }#
+  }#
+  tilde <- list() # 結合によって分離されたテンソル組を定義#
+  # 予測値f_lの計算#
+  f_product <- list()#
+  for (i in 1 : N) { # w_tnsrとphiの積#
+    temp <- ttm(w_tnsr[[i]], matrix(c(phi1[i], phi2[i]), 1, 2), m = 2)#
+    f_product <- c(f_product, temp)#
+  }#
+  left_v <- seq(1, 1, length = m)#
+  temp <- seq(1, 1, length = m)#
+  for (i in 1 : l-1) { # lより左の計算#
+    for (j in 1 : dim(f_product[[i]][1,1,])) {#
+      for (k in 1 : dim(f_product[[i]][,1,1])) {#
+        temp[j] <- left_v[k] * f_product[[i]][k,1,j]#
+        left_v <- temp#
+      }#
+    }#
+  }#
+  tilde <- c(tilde, left_v)#
+  tilde <- c(tilde, c(phi1[l], phi2[l]))#
+  tilde <- c(tilde, c(phi1[l+1], phi2[l+1]))#
+  right_v <- seq(1, 1, length = m)#
+  temp <- seq(1, 1, length = m)#
+  for (i in N : l+1) { # lより右の計算#
+    for (j in 1 : dim(f_product[[i]][,1,1])) {#
+      for (k in 1 : dim(f_product[[i]][1,1,])) {#
+        temp[j] <- right_v[k] * f_product[[i]][j,1,k]#
+        right_v <- temp#
+      }#
+    }#
+    if (i == l+2) {#
+      tilde <- c(tilde, right_v)#
+    }#
+  }#
+  f_l <- seq(0, 0, length = N_L)#
+  for (i in 1 : N_L) {#
+    for (j in 1 : m) {#
+      for (k in 1 : m) {#
+        f_l[i] <- f_l[i] + f_product[[l]][j,1,k,i] * left_v[j] * right_v[k]#
+      }#
+    }#
+  }#
+  # シグマ計算#
+  # delta <- delta + tilde[[1]] %o% tilde[[2]] %o% tilde[[3]] %o% tilde[[4]] %o% (y_l - f_l)#
+  for (i1 in 1 : m) {#
+    for (i2 in 1 : 2) {#
+      for (i3 in 1 : 2) {#
+        for (i4 in 1 : m) {#
+          for (i5 in 1 : N_L) {#
+            temp <- tilde[[1]][i1] * tilde[[2]][i2] * tilde[[3]][i3] * tilde[[4]][i4] * (y_l[i5]-f_l[i5])#
+            delta[i1, i2, i3, i4, i5] <- delta[i1, i2, i3, i4, i5] + temp#
+          }#
+        }#
+      }#
+    }#
+  }#
+}
+f_product[[1]]
+f_product[[2]]
+warnings()
+x
+# MNISTのトレーニングデータを画像表示する#
+setwd("/Users/kada/Documents/szk/mnist")#
+#
+view_train <- function(train, range) {#
+  par(mfrow=c(length(range)/4, 5))#
+  par(mar=c(0,0,0,0))#
+  x <- seq(0, 0, length = 14*14)#
+  for (a in range) {#
+    digit <- data.matrix(train[a,-1])#
+    for (i in 0:(14-1)) {#
+      for (j in 0:(14-1)) {#
+        # あえて割らずに整数値にしておく mean(...)/255#
+        x[14*i+j] <- digit[28*2*i+2*j] + digit[28*2*i+2*j+1] + digit[28*(2*i+1)+2*j] + digit[28*(2*i+1)+2*j+1]#
+      }#
+    }#
+    data.A <- matrix(x, nrow=1, ncol=196)#
+    write.table(data.A, file="comp_test.csv", sep=",", col.names=F, row.names=F, quote=F, append = TRUE)#
+    #m <- matrix(x, 14, 14)#
+    #image(m[,14:1])#
+  }#
+}#
+#
+range <- 1:28000#
+view_train(test, range)
+x[1]
+x[133]
+# データの訓練#
+for (a in 1 : N_T) {#
+  # #
+  x <- data.matrix(comp_train_label[a,-1])#
+  for (i in 1 : N) {#
+    phi1[i] <- cos(pi * x[i] / (2 * 1020)) # ここで割る mean(...)/255#
+    phi2[i] <- sin(pi * x[i] / (2 * 1020))#
+  }#
+  # ラベルy_lの計算#
+  y_l <- seq(0, 0, length = N_L)#
+  for (i in 0 : 9) {#
+    if (i == train[a,-2][1]) {#
+      y_l[i] <- 1#
+    } else {#
+      y_l[i] <- 0#
+    }#
+  }#
+  tilde <- list() # 結合によって分離されたテンソル組を定義#
+  # 予測値f_lの計算#
+  f_product <- list()#
+  for (i in 1 : N) { # w_tnsrとphiの積#
+    temp <- ttm(w_tnsr[[i]], matrix(c(phi1[i], phi2[i]), 1, 2), m = 2)#
+    f_product <- c(f_product, temp)#
+  }#
+  left_v <- seq(1, 1, length = m)#
+  temp <- seq(1, 1, length = m)#
+  for (i in 1 : l-1) { # lより左の計算#
+    for (j in 1 : dim(f_product[[i]][1,1,])) {#
+      for (k in 1 : dim(f_product[[i]][,1,1])) {#
+        temp[j] <- left_v[k] * f_product[[i]][k,1,j]#
+        left_v <- temp#
+      }#
+    }#
+  }#
+  tilde <- c(tilde, left_v)#
+  tilde <- c(tilde, c(phi1[l], phi2[l]))#
+  tilde <- c(tilde, c(phi1[l+1], phi2[l+1]))#
+  right_v <- seq(1, 1, length = m)#
+  temp <- seq(1, 1, length = m)#
+  for (i in N : l+1) { # lより右の計算#
+    for (j in 1 : dim(f_product[[i]][,1,1])) {#
+      for (k in 1 : dim(f_product[[i]][1,1,])) {#
+        temp[j] <- right_v[k] * f_product[[i]][j,1,k]#
+        right_v <- temp#
+      }#
+    }#
+    if (i == l+2) {#
+      tilde <- c(tilde, right_v)#
+    }#
+  }#
+  f_l <- seq(0, 0, length = N_L)#
+  for (i in 1 : N_L) {#
+    for (j in 1 : m) {#
+      for (k in 1 : m) {#
+        f_l[i] <- f_l[i] + f_product[[l]][j,1,k,i] * left_v[j] * right_v[k]#
+      }#
+    }#
+  }#
+  # シグマ計算#
+  # delta <- delta + tilde[[1]] %o% tilde[[2]] %o% tilde[[3]] %o% tilde[[4]] %o% (y_l - f_l)#
+  for (i1 in 1 : m) {#
+    for (i2 in 1 : 2) {#
+      for (i3 in 1 : 2) {#
+        for (i4 in 1 : m) {#
+          for (i5 in 1 : N_L) {#
+            temp <- tilde[[1]][i1] * tilde[[2]][i2] * tilde[[3]][i3] * tilde[[4]][i4] * (y_l[i5]-f_l[i5])#
+            delta[i1, i2, i3, i4, i5] <- delta[i1, i2, i3, i4, i5] + temp#
+          }#
+        }#
+      }#
+    }#
+  }#
+}
