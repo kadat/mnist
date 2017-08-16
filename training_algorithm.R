@@ -10,12 +10,12 @@ N <- 14*14 # 画像のピクセル数
 phi1 <- seq(0, 0, length = N) # x1の特徴写像
 phi2 <- seq(0, 0, length = N) # x2の特徴写像
 
-eta <- 0.01 # 学習率
+eta <- 0.02 # 学習率
 
 
 # テンソルトレインを定義(初期化)
 m <- 10 # band dimension
-l <- 100 # 番号のラベル
+l <- 50 # 番号のラベル
 w_tnsr <- list()
 for (i in 1 : N) {
   if (i == 1) {
@@ -31,6 +31,8 @@ for (i in 1 : N) {
 }
 
 
+for (times in 1 : 100) {
+
 # テンソルの結合
 B <- as.tensor(array(seq(0, 0, length = m*2*2*m*N_L), dim = c(m,2,2,m,N_L)))
 delta <- B # テンソル微分(初期化)
@@ -40,7 +42,7 @@ for (i1 in 1 : dim(B[,1,1,1,1])) {
       for (i4 in 1 : dim(B[1,1,1,,1])) {
         for (i5 in 1 : dim(B[1,1,1,1,])) {
           for (j in 1 : m) {
-            B[i1,i2,i3,i4,i5] <- w_tnsr[[l]][i1,i2,j,i5] * w_tnsr[[l+1]][j,i3,i4]
+            B[i1,i2,i3,i4,i5] <- B[i1,i2,i3,i4,i5] + w_tnsr[[l]][i1,i2,j,i5] * w_tnsr[[l+1]][j,i3,i4]
           }
         }
       }
@@ -48,11 +50,10 @@ for (i1 in 1 : dim(B[,1,1,1,1])) {
   }
 }
 
-
 # データの訓練
-for (a in 1 : 10) { # 1 : N_L
-  # 
-  x <- data.matrix(train[a,-1])
+for (a in (100*times-99) : (100*times)) { # 1 : N_L
+  # エンコード
+  x <- data.matrix(comp_train_label[a,-1])
   for (i in 1 : N) {
     phi1[i] <- cos(pi * x[i] / (2 * 1020)) # ここで割る mean(...)/255
     phi2[i] <- sin(pi * x[i] / (2 * 1020))
@@ -68,7 +69,7 @@ for (a in 1 : 10) { # 1 : N_L
     }
   }
   
-  tilde <- list() # 結合によって分離されたテンソル組を定義
+  tilde <- list() # B_lによって分離されたテンソル組を定義
   
   # 予測値f_lの計算
   f_product <- list()
@@ -101,7 +102,7 @@ for (a in 1 : 10) { # 1 : N_L
   tilde <- c(tilde, list(c(phi1[l+1], phi2[l+1])))
   
   temp <- seq(0, 0, length = m)
-  for (i in ((N-2) : (l+1))) { # lより右の計算
+  for (i in ((N-2) : (l+2))) { # l+1より右の計算
     right_v <- seq(0, 0, length = m)
     if (i == (N-2)) {
       for (j in 1 : m) { # dim(f_product[[i-1]][,1,1]) = m
@@ -120,17 +121,23 @@ for (a in 1 : 10) { # 1 : N_L
   }
   tilde <- c(tilde, list(right_v))
   
+  # f_lの計算
   f_l <- seq(0, 0, length = N_L)
-  for (i in 1 : N_L) {
-    for (j in 1 : m) {
-      for (k in 1 : m) {
-        f_l[i] <- f_l[i] + f_product[[l]][j,1,k,i]@data * left_v[j] * right_v[k]
+  for (i1 in 1 : N_L) {
+    for (i2 in 1 : m) {
+      for (i3 in 1 : 2) {
+        for (i4 in 1 : 2) {
+          for (i5 in 1 : m) {
+            f_l[i1] <- f_l[i1] + B[i2,i3,i4,i5,i1]@data * tilde[[1]][i2] * tilde[[2]][i3] * tilde[[3]][i4] * tilde[[4]][i5]
+          }
+        }
       }
     }
   }
   
   # シグマ計算
   delta <- delta + tilde[[1]] %o% tilde[[2]] %o% tilde[[3]] %o% tilde[[4]] %o% (y_l - f_l)
+  print(a)
 }
 
 # コスト関数の更新
@@ -171,7 +178,7 @@ for (i1 in 1 : m) {
     for (i3 in 1 : m) {
       for (i4 in 1 : N_L) {
         for (j in 1 : 2*m) {
-          w_tnsr[[l+1]][i1,i2,i3,i4] <- S[i1,j] * V[(i2-1)*m*N_L+(i3-1)*N_L+i4,j]
+          w_tnsr[[l+1]][i1,i2,i3,i4] <- w_tnsr[[l+1]][i1,i2,i3,i4] + S[i1,j] * V[(i2-1)*m*N_L+(i3-1)*N_L+i4,j]
         }
       }
     }
@@ -179,3 +186,4 @@ for (i1 in 1 : m) {
 }
 l <- l + 1
 
+}
